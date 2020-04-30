@@ -9,7 +9,7 @@
                 <div class="card-tools">
                  
                     <button class="btn btn-success " data-toggle="modal" data-target="#AddNewModal">Add New <i class="fa fa-user-plus fa-fw"></i></button>
-                  </div>
+                  
                 </div>
               </div>
 
@@ -60,36 +60,38 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    
-                     <div class="form-group">
-                        
-                        <input v-model="form.name" type="text" name="name"
-                            placeholder="name"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
-                        <has-error :form="form" field="name"></has-error>
-                    </div>
+                <form @submit.prevent="createUser">
+                  <div class="modal-body">
+                  
+                      <div class="form-group">
+                          
+                          <input v-model="form.name" type="text" name="name"
+                              placeholder="name"
+                              class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                          <has-error :form="form" field="name"></has-error>
+                      </div>
 
-                    <div class="form-group">
-                        
-                        <input v-model="form.email" type="email" email="email"
-                            placeholder="Email Address"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                        <has-error :form="form" field="email"></has-error>
-                    </div>
+                      <div class="form-group">
+                          
+                          <input v-model="form.email" type="email" email="email"
+                              placeholder="Email Address"
+                              class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                          <has-error :form="form" field="email"></has-error>
+                      </div>
 
-                     <div class="form-group">
-                        
-                        <input v-model="form.password" type="password" email="password"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
-                        <has-error :form="form" field="password"></has-error>
-                    </div>
+                      <div class="form-group">
+                          
+                          <input v-model="form.password" type="password" name="password" id="password"
+                              class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                          <has-error :form="form" field="password"></has-error>
+                      </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create</button>
-                </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Create</button>
+                  </div>
+                </form>
                 </div>
             </div>
             </div>
@@ -107,6 +109,11 @@
                     password: ''
                 })
             }
+        },
+        methods: {
+          createUser(){
+              this.form.post('api/user');
+          }
         },
         mounted() {
             console.log('Component mounted.')
