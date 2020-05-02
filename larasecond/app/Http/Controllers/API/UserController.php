@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\support\Facades\Hash;
 
+
 class UserController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::latest()->paginate(10);
     }
 
     /**
@@ -27,10 +28,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+       $this->validate($request,[
+           'name'  => 'required|string|max:191',
+           'email'  => 'required|string|email|max:191|unique:users',
+           'password'  => 'required|string|min:6'
+        ]);
+        // dd($request->all());
         return User::create([
-            'name' ->$request['name'],
-            'email' ->$request['email'],
-            'password' -> hash::make($request['password']),
+            'name' =>$request['name'],
+            'email' =>$request['email'],
+            'password' => hash::make($request['password']),
         ]);
     }
 
