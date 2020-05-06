@@ -131,7 +131,7 @@
                           'success'
                       )
                       this.$Progress.finish();
-                      Fire.$emit('AfterCareated');
+                      Fire.$emit('AfterCreated');
               })
               .catch(() => {
                 this.$Progress.fail();
