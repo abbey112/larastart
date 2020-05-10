@@ -45,6 +45,7 @@ Vue.use(VueProgressBar, {
 
 let routes = [
     { path: '/Dashboard', component: require('./components/Dashboard.vue').default },
+    { path: '/Developer', component: require('./components/Developer.vue').default },
     { path: '/Users', component: require('./components/Users.vue').default },
     { path: '/Profile', component: require('./components/profile.vue').default }
   ]
@@ -75,6 +76,21 @@ window.Fire = new Vue();
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+Vue.component(
+  'passport-clients',
+  require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+  'passport-authorized-clients',
+  require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+  'passport-personal-access-tokens',
+  require('./components/passport/PersonalAccessTokens.vue').default
+);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
