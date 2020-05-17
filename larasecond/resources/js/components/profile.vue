@@ -123,7 +123,7 @@
                         <div class="form-group ">
                         <label for="photo" class="col-sm-12 control-label">profile photo</label>
                         <div class="col-sm-10">
-                          <input type="file" name="Photo" class="form-input">
+                          <input type="file" name="Photo" @change="updateprofile" class="form-input">
                         </div>
                       </div>
                       <div class="form-group">
@@ -143,7 +143,7 @@
                       </div>
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
+                          <button type="submit" class="btn btn-danger">Update</button>
                         </div>
                       </div>
                     </form>
@@ -169,7 +169,7 @@
 <script>
     export default {
         data() {
-            return {
+            return{
                  form: new Form({
                     id: '',
                     name: '',
@@ -182,7 +182,20 @@
             console.log('Component mounted.')
         },
 
-        create() {
+        methods:{
+            updateprofile(e) {
+               // console.log('uploading');
+               let file = e.target.files[0];
+               console.log(file)
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    //console.log('RESULT', reader.result)
+                }
+                reader.readAsDataURL(file);
+            }
+        },
+
+        created() {
             axios.get("api/profile").then(({data}) => (this.form.fill(data)));
         }
     }

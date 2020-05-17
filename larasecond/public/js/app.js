@@ -2126,6 +2126,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2135,7 +2153,10 @@ __webpack_require__.r(__webpack_exports__);
         id: '',
         name: '',
         email: '',
-        password: ''
+        password: '',
+        type: '',
+        bio: '',
+        photo: ''
       })
     };
   },
@@ -3211,7 +3232,20 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Component mounted.');
   },
-  create: function create() {
+  methods: {
+    updateprofile: function updateprofile(e) {
+      // console.log('uploading');
+      var file = e.target.files[0];
+      console.log(file);
+      var reader = new FileReader();
+
+      reader.onloadend = function () {//console.log('RESULT', reader.result)
+      };
+
+      reader.readAsDataURL(file);
+    }
+  },
+  created: function created() {
     var _this = this;
 
     axios.get("api/profile").then(function (_ref) {
@@ -52229,6 +52263,111 @@ var render = function() {
                         "div",
                         { staticClass: "form-group" },
                         [
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.bio,
+                                expression: "form.bio"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: { "is-invalid": _vm.form.errors.has("bio") },
+                            attrs: {
+                              name: "bio",
+                              id: "bio",
+                              placeholder: "Bio"
+                            },
+                            domProps: { value: _vm.form.bio },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "bio", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "bio" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.type,
+                                  expression: "form.type"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("type")
+                              },
+                              attrs: { name: "type", id: "type" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "type",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("select your role ")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "admin" } }, [
+                                _vm._v("admin")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "user" } }, [
+                                _vm._v("User")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "author" } }, [
+                                _vm._v("Author")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "type" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
                           _c("input", {
                             directives: [
                               {
@@ -53624,13 +53763,30 @@ var render = function() {
                         _vm._v(" "),
                         _vm._m(3),
                         _vm._v(" "),
+                        _c("div", { staticClass: "form-group " }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-12 control-label",
+                              attrs: { for: "photo" }
+                            },
+                            [_vm._v("profile photo")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-10" }, [
+                            _c("input", {
+                              staticClass: "form-input",
+                              attrs: { type: "file", name: "Photo" },
+                              on: { change: _vm.updateprofile }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
                         _vm._m(4),
                         _vm._v(" "),
                         _vm._m(5),
                         _vm._v(" "),
-                        _vm._m(6),
-                        _vm._v(" "),
-                        _vm._m(7)
+                        _vm._m(6)
                       ])
                     ]
                   )
@@ -53786,25 +53942,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group " }, [
-      _c(
-        "label",
-        { staticClass: "col-sm-12 control-label", attrs: { for: "photo" } },
-        [_vm._v("profile photo")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-10" }, [
-        _c("input", {
-          staticClass: "form-input",
-          attrs: { type: "file", name: "Photo" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
       _c(
         "label",
@@ -53845,7 +53982,7 @@ var staticRenderFns = [
         _c(
           "button",
           { staticClass: "btn btn-danger", attrs: { type: "submit" } },
-          [_vm._v("Submit")]
+          [_vm._v("Update")]
         )
       ])
     ])

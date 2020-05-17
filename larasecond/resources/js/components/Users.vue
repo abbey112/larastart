@@ -83,6 +83,24 @@
 
                       <div class="form-group">
                           
+                          <textarea v-model="form.bio" name="bio" id="bio"
+                            placeholder="Bio"
+                              class="form-control" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
+                          <has-error :form="form" field="bio"></has-error>
+                      </div>
+                      <div class="form-group">
+                          
+                          <select v-model="form.type" name="type" id="type"
+                                class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
+                                <option value="">select your role </option>
+                                <option value="admin">admin</option>
+                                <option value="user">User</option>
+                                <option value="author">Author</option>
+                          </select>
+                          <has-error :form="form" field="type"></has-error>
+                      </div>
+                        <div class="form-group">
+                          
                           <input v-model="form.password" type="password" name="password" id="password"
                               class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
                           <has-error :form="form" field="password"></has-error>
@@ -113,7 +131,10 @@
                     id: '',
                     name: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    type: '',
+                    bio: '',
+                    photo: ''
                 })
             }
         },
