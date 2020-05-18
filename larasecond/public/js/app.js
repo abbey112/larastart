@@ -3225,7 +3225,10 @@ __webpack_require__.r(__webpack_exports__);
         id: '',
         name: '',
         email: '',
-        password: ''
+        password: '',
+        type: '',
+        bio: '',
+        photo: ''
       })
     };
   },

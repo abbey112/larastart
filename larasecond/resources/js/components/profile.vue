@@ -170,11 +170,14 @@
     export default {
         data() {
             return{
-                 form: new Form({
+                  form: new Form({
                     id: '',
                     name: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    type: '',
+                    bio: '',
+                    photo: ''
                 })
             }
         },
