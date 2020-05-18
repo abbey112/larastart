@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,5 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
+
     return $request->user();
 });
+
+
+Route::apiResources(['user' => 'API\UserController']);
+Route::get('profile', 'API\UserController@profile');
+
+//Route::post('/user', 'API\UserController@store');
+// Route::post('/user', function(){return 'yes';});
