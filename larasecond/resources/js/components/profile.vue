@@ -105,7 +105,7 @@
                       <div class="form-group ">
                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="email" v-model="form.name" class="form-control" id="inputName" placeholder="Name">
+                          <input type="text" v-model="form.name" class="form-control" id="inputName" placeholder="Name">
                         </div>
                       </div>
                       <div class="form-group ">
@@ -133,7 +133,7 @@
                           </div>
                       </div>
                       <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
+                        <div class="col-sm-10">
                           <div class="checkbox">
                             <label>
                               <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
@@ -142,8 +142,8 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Update</button>
+                        <div class=" col-sm-10">
+                          <button @click.prevent="updateInfo" type="submit" class="btn btn-success">Update</button>
                         </div>
                       </div>
                     </form>
@@ -186,6 +186,17 @@
         },
 
         methods:{
+
+            updateInfo() {
+                this.form.put('api/profile')
+                .then(() =>{
+
+                })
+                .catch(() => {
+
+                });
+            },
+
             updateprofile(e) {
                // console.log('uploading');
                let file = e.target.files[0];

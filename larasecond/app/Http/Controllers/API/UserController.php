@@ -51,6 +51,16 @@ class UserController extends Controller
             'password' => hash::make($request['password']),
         ]);
     }
+
+    public function updateProfile(Request $request)
+    {
+       $user = auth('api')->user();
+
+
+        return ($request ->photo);
+      // return['message' => "success"];
+    }
+    
     public function profile()
     {
        return auth('api')->user();
