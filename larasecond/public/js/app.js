@@ -3209,15 +3209,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -53790,8 +53781,6 @@ var render = function() {
                         _vm._v(" "),
                         _vm._m(4),
                         _vm._v(" "),
-                        _vm._m(5),
-                        _vm._v(" "),
                         _c("div", { staticClass: "form-group row" }, [
                           _c("div", { staticClass: " col-sm-10" }, [
                             _c(
@@ -53977,22 +53966,6 @@ var staticRenderFns = [
           staticClass: "form-control",
           attrs: { type: "password", id: "password", placeholder: "password" }
         })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "col-sm-10" }, [
-        _c("div", { staticClass: "checkbox" }, [
-          _c("label", [
-            _c("input", { attrs: { type: "checkbox" } }),
-            _vm._v(" I agree to the "),
-            _c("a", { attrs: { href: "#" } }, [_vm._v("terms and conditions")])
-          ])
-        ])
       ])
     ])
   }

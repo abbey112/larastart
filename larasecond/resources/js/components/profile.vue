@@ -133,15 +133,6 @@
                           </div>
                       </div>
                       <div class="form-group row">
-                        <div class="col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
                         <div class=" col-sm-10">
                           <button @click.prevent="updateInfo" type="submit" class="btn btn-success">Update</button>
                         </div>
@@ -210,7 +201,7 @@
         },
 
         created() {
-            axios.get("api/profile").then(({data}) => (this.form.fill(data)));
+            axios.get("api/profile").then(({ data }) => (this.form.fill(data)));
         }
     }
 </script>

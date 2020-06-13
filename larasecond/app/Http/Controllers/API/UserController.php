@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\support\Facades\Hash;
+use  Illuminate\Support\Facades\Log;
 
 
 class UserController extends Controller
@@ -55,15 +56,25 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
        $user = auth('api')->user();
+       
+       
 
 
         return ($request ->photo);
       // return['message' => "success"];
     }
     
-    public function profile()
+    public function profile(Request $request)
     {
-       return auth('api')->user();
+      // return auth('api')->user();
+      // $request->user('api');
+
+       $user = $request->user('api');
+       Log::debug($user);
+       Log::debug($request);
+       return $user;
+       
+      
     }
 
 
