@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\support\Facades\Hash;
+use  Illuminate\Support\Facades\Log;
 
 
 class UserController extends Controller
@@ -15,10 +16,12 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct()
+     public function __construct()
     {
         $this->middleware('api');
-    }
+
+       // return $request->user();
+    } 
 
     /**
      * Display a listing of the resource.
@@ -51,6 +54,18 @@ class UserController extends Controller
             'password' => hash::make($request['password']),
         ]);
     }
+
+    public function updateProfile(Request $request)
+    {
+       $user = auth('api')->user();
+       
+       
+
+
+        return ($request ->photo);
+      // return['message' => "success"];
+    } 
+    
     public function profile()
     {
        return auth('api')->user();
