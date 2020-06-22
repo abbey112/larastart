@@ -158,10 +158,10 @@
 
 
 <script>
-    export default {
-        data() {
-            return{
-                  form: new Form({
+     export default {
+       data() {
+         return {
+           form: new Form({
                     id: '',
                     name: '',
                     email: '',
@@ -170,38 +170,19 @@
                     bio: '',
                     photo: ''
                 })
-            }
-        },
+         }
+
+       },
         mounted() {
             console.log('Component mounted.')
         },
 
-        methods:{
-
-            updateInfo() {
-                this.form.put('api/profile')
-                .then(() =>{
-
-                })
-                .catch(() => {
-
-                });
-            },
-
-            updateprofile(e) {
-               // console.log('uploading');
-               let file = e.target.files[0];
-               console.log(file)
-                var reader = new FileReader();
-                reader.onloadend = function() {
-                    //console.log('RESULT', reader.result)
-                }
-                reader.readAsDataURL(file);
-            }
-        },
-
         created() {
-            axios.get("api/profile").then(({ data }) => (this.form.fill(data)));
+            axios.get("api/profile")
+               .then(({data}) => (this.form.fill(data)));
+            
         }
     }
+    
+   
 </script>

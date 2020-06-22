@@ -16,10 +16,12 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct()
+     public function __construct()
     {
         $this->middleware('api');
-    }
+
+       // return $request->user();
+    } 
 
     /**
      * Display a listing of the resource.
@@ -62,19 +64,11 @@ class UserController extends Controller
 
         return ($request ->photo);
       // return['message' => "success"];
-    }
+    } 
     
-    public function profile(Request $request)
+    public function profile()
     {
-      // return auth('api')->user();
-      // $request->user('api');
-
-       $user = $request->user('api');
-       Log::debug($user);
-       Log::debug($request);
-       return $user;
-       
-      
+       return auth('api')->user();
     }
 
 

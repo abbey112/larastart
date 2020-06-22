@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResources(['user' => 'API\UserController']);
 Route::get('profile', 'API\UserController@profile');
-Route::put('profile', 'API\UserController@updateProfile');
+//Route::put('profile', 'API\UserController@updateProfile');
 
 //Route::post('/user', 'API\UserController@store');
 // Route::post('/user', function(){return 'yes';});
