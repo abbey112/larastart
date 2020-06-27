@@ -105,6 +105,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           <li class="nav-item">
+            <router-link to="/developer" class="nav-link">
+              <i class="nav-icon fas fa-cogs yellow"></i>
+              <p>
+               Developer
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user cyan"></i>
               <p>
@@ -143,7 +151,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content">
       <div class="container-fluid">
 
-        <router-view></router-view>        
+        <router-view></router-view> 
+        
+        <vue-progress-bar></vue-progress-bar>
     
         <!-- /.row -->
       </div><!-- /.container-fluid -->
