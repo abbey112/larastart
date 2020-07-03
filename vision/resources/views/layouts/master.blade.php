@@ -27,16 +27,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" type="search" @keyup.enter="searchit" v-model="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
+          <button class="btn btn-navbar" @click="searchit">
             <i class="fas fa-search"></i>
           </button>
         </div>
       </div>
-    </form>
 
     <!-- Right navbar links -->
    
@@ -62,6 +61,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="info">
           <a href="#" class="d-block">
             {{ Auth::user()->name }}
+           <p> {{ Auth::user()->type }}</p>
           </a>
         </div>
       </div>
@@ -104,6 +104,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @can('isAdmin')
           <li class="nav-item">
             <router-link to="/developer" class="nav-link">
               <i class="nav-icon fas fa-cogs yellow"></i>
@@ -112,6 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
+          @endcan
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user cyan"></i>
@@ -177,7 +179,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
+@auth
+<script>
+  window.user = @json(auth()->user())
+</script>
+   
+@endauth
 
 <!-- jQuery -->
 <script src="/js/app.js"></script>

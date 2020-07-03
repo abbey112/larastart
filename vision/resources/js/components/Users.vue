@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-       <div class="row mt-3">
+       <div class="row mt-5" v-if="$gate.isAdminOrAuthor()">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Users Table</h3>
-
+               
                 <div class="card-tools">
                     <button class="btn btn-success" @click="newModal"> Add New <i class="fas fa-user-plus "></i></button>
                 </div>
@@ -24,7 +24,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="user in users" :key="user.id">
+                    <tr v-for="user in users.data" :key="user.id">
                       <td>{{user.id}}</td>
                       <td>{{user.name}}</td>
                       <td>{{user.email}}</td>
@@ -45,9 +45,16 @@
                 </table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                  <pagination :data="users" @pagination-change-page="getResults"></pagination>
+              </div>
             </div>
             <!-- /.card -->
           </div>
+        </div>
+
+        <div v-if="!$gate.isAdminOrAuthor()">
+            <not-found></not-found>
         </div>
 
          <!-- Modal -->
@@ -110,7 +117,8 @@
                 </form>
                 </div>
             </div>
-            </div>
+            </div>    
+    
     </div>
 </template>
 
@@ -134,9 +142,19 @@
         },
 
         methods: {
+
+            getResults(page = 1) {
+			axios.get('api/user?page=' + page)
+				.then(response => {
+					this.users = response.data;
+				});
+		    },
+
             loadUsers() {
-               //axios.get("api/user").then(({ data }) => (this.users = data));
-               axios.get("api/user").then(({data}) => (this.users = data.data));
+               if(this.$gate.isAdminOrAuthor()){
+                  axios.get("api/user").then(({data}) => (this.users = data));
+               }
+              
     
             },
             updateUser() {
@@ -189,7 +207,7 @@
                                 )
                                 Fire.$emit('AfterCreate');
                             }).catch(()=> {
-                                swal("Failed", "There is something wrong", "warning");
+                                Swal.fire("Failed", "There is something wrong", "warning");
                             });
                             }
                         })
@@ -215,6 +233,16 @@
             }
         },
         mounted() {
+            Fire.$on('searching', () =>{
+                let query = this.$parent.search;
+                axios.get('api/finduser?q' + query)
+                .then((data) =>{
+                    this.users = data.data
+                })
+                .catch(() =>{
+
+                })
+            })
            this.loadUsers();
            Fire.$on('AfterCreate', () =>{
                this.loadUsers()

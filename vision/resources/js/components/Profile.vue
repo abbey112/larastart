@@ -17,7 +17,7 @@
                 <h5 class="widget-user-desc text-right">Web Designer</h5>
               </div>
               <div class="widget-user-image">
-                <img class="img-circle" src="" alt="User Avatar">
+                <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar">
               </div>
               <div class="card-footer">
                 <div class="row">
@@ -107,16 +107,7 @@
                         <div class="col-sm-12">
                           <input type="password" v-model="form.password" class="form-control" id="password" placeholder="password" 
                           :class="{ 'is-invalid': form.errors.has('password') }">
-                          <has-error :form="form" field="email"></has-error>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
+                          <has-error :form="form" field="password"></has-error>
                         </div>
                       </div>
                       <div class="form-group">
@@ -158,8 +149,23 @@
         },
 
         methods: {
+          getProfilePhoto(){
+           // return "img/Profile/"+ this.form.photo;
+           let photo = "/static/default-profile.png";
+             if (this.form.photo) {
+               if (this.form.photo.indexOf('base64') != -1) {
+                   photo = this.form.photo;
+               } else {
+                   photo = 'img/profiles/' + this.form.photo;
+                  }
+              }
+               return photo;
+          },
             UpdateInfo() {
                 this.$Progress.start()
+                if(this.form.password == '') {
+                  this.form.password = undefined;
+                }
                 this.form.put('api/profile')
                 .then(() => {
 

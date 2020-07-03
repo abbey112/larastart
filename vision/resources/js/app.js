@@ -13,6 +13,9 @@ import { Form, HasError, AlertError } from 'vform';
 import Swal from 'sweetalert2'
 window.Swal = Swal;
 
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
+
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -32,6 +35,8 @@ window.form = Form
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
@@ -48,7 +53,8 @@ let routes = [
     { path: '/Dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/developer', component: require('./components/Developer.vue').default },
     { path: '/Profile', component: require('./components/Profile.vue').default },
-    { path: '/Users', component: require('./components/Users.vue').default }
+    { path: '/Users', component: require('./components/Users.vue').default },
+    { path: '*', component: require('./components/NotFound.vue').default }
  ]
 
  const router = new VueRouter({
@@ -81,6 +87,11 @@ Vue.component(
   require('./components/passport/PersonalAccessTokens.vue').default
 );
 
+Vue.component(
+  'not-found',
+  require('./components/NotFound.vue').default
+);
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -103,5 +114,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+  data:{
+    search: ''
+  },
+  methods: {
+    searchit(){
+      Fire.$emit('searching')
+    }
+  }
 });

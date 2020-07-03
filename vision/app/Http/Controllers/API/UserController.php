@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\support\facades\Hash;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -28,7 +29,11 @@ class UserController extends Controller
     public function index()
     {
         //
-        return User::latest()->paginate(10);
+        //$this->authorize('isAdmin');
+        if(Gate::allows('isAdmin') ||  Gate::allows('isAuthor')) {
+            return User::latest()->paginate(5);
+        }
+        
     }
 
     /**
@@ -83,13 +88,23 @@ class UserController extends Controller
 
             $request->merge(['photo' => $name]);
 
-            if(!empty($request->password)) {
-                $request->merge(['password' => Hash::make($request ['password'])]);
+          
+            $userPhoto = public_path('img/profile/').$currentPhoto;
+            if(file_exists($userPhoto)){
+                @unlink($userPhoto);
             }
-            
+
         }
-         $user->update($request->all());
-         return['message' => 'Success'];
+       
+
+        if(!empty($request->password)) {
+            $request->merge(['password' => Hash::make($request ['password'])]);
+        }
+
+
+        $user->update($request->all());
+        return['message' => 'Success'];
+
     }
 
     /**
@@ -133,6 +148,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('isAdmin');
+
         $user = User::findorFail($id);
 
         //delete user
